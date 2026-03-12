@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ブロックゲーム（マリオ風）</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        <!-- スコア・UI表示 -->
+        <div id="ui-header">
+            <div id="score-display">SCORE: <span id="score">0</span></div>
+        </div>
+
+        <!-- ゲーム画面（キャンバス） -->
+        <div id="canvas-container">
+            <canvas id="tetris" width="240" height="480"></canvas>
+            
+            <!-- ゲームオーバー時の表示 -->
+            <div id="game-over-screen" class="hidden">
+                <h2>GAME OVER</h2>
+                <p>FINAL SCORE: <span id="final-score">0</span></p>
+                
+                <div id="high-scores-box">
+                    <h3>🏆 HIGH SCORES 🏆</h3>
+                    <ol id="high-scores-list">
+                        <li>---</li>
+                        <li>---</li>
+                        <li>---</li>
+                    </ol>
+                </div>
+
+                <button id="retry-button">もう一度遊ぶ</button>
+            </div>
+        </div>
+
+        <!-- スマホ用操作ボタン -->
+        <div id="mobile-controls">
+            <!-- 上段：回転ボタン -->
+            <div class="control-row">
+                <button class="control-btn" id="btn-rotate">↻ 回転</button>
+            </div>
+            <!-- 下段：左右下ボタン -->
+            <div class="control-row">
+                <button class="control-btn" id="btn-left">◁ 左</button>
+                <button class="control-btn" id="btn-down">▽ 下</button>
+                <button class="control-btn" id="btn-right">右 ▷</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 雲や山の装飾（CSSでデザイン） -->
+    <div class="scenery cloud cloud1"></div>
+    <div class="scenery cloud cloud2"></div>
+    <div class="scenery mountain mountain1"></div>
+    <div class="scenery mountain mountain2"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

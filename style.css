@@ -1,0 +1,227 @@
+/* 全体の設定 */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #5c94fc; /* マリオ風の空の水色 */
+    font-family: 'Press Start 2P', 'Courier New', Courier, monospace;
+    overflow: hidden; /* スクロール禁止 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    touch-action: none; /* スマホでのズームやスクロールを防止 */
+}
+
+/* ゲーム全体を包むコンテナ */
+#game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+/* スコア表示 */
+#ui-header {
+    width: 240px;
+    color: white;
+    text-shadow: 2px 2px 0 #000;
+    margin-bottom: 10px;
+    text-align: right;
+    font-size: 14px;
+}
+
+/* キャンバス（ゲーム画面）周り */
+#canvas-container {
+    position: relative;
+    width: 240px;
+    height: 480px;
+    border: 4px solid #fff; /* 白い枠線 */
+    background-color: #000; /* 背景は黒（ブロックが見やすいように） */
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.2);
+}
+
+canvas {
+    display: block;
+}
+
+/* ゲームオーバー画面 */
+#game-over-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #e52521; /* マリオレッド */
+    text-shadow: 2px 2px 0 #000;
+}
+
+#game-over-screen.hidden {
+    display: none;
+}
+
+#game-over-screen h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#game-over-screen p {
+    color: #fff;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+#high-scores-box {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #e52521;
+    margin-bottom: 20px;
+    color: #333;
+    text-shadow: none;
+    width: 80%;
+}
+
+#high-scores-box h3 {
+    font-size: 10px;
+    margin: 0 0 5px 0;
+    text-align: center;
+    color: #e52521;
+}
+
+#high-scores-list {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 12px;
+    list-style-type: decimal;
+}
+
+#high-scores-list li {
+    margin-bottom: 3px;
+}
+
+#retry-button {
+    background-color: #43b047; /* マリオグリーン */
+    color: white;
+    font-family: inherit;
+    font-size: 12px;
+    border: 2px solid white;
+    padding: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+#retry-button:active {
+    background-color: #2b7a2e;
+}
+
+/* スマホ用操作ボタン（パソコンでは非表示にすることも可ですが、今回は常に表示） */
+#mobile-controls {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.control-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.control-btn {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 2px solid #333;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none; /* テキスト選択防止 */
+}
+
+.control-btn:active {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* スマホの縦画面などの小さいサイズの時だけボタンを表示、パソコンでは隠す */
+@media (min-width: 768px) {
+    #mobile-controls {
+        display: none;
+    }
+}
+
+/* --- 背景の装飾（雲と山） --- */
+.scenery {
+    position: absolute;
+    z-index: 1;
+}
+
+/* 雲 */
+.cloud {
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 
+        30px -15px 0 0 #fff,
+        60px 0 0 0 #fff,
+        90px -10px 0 0 #fff;
+    opacity: 0.8;
+}
+
+.cloud1 {
+    width: 40px;
+    height: 30px;
+    top: 10%;
+    left: 10%;
+}
+
+.cloud2 {
+    width: 30px;
+    height: 20px;
+    top: 25%;
+    right: 20%;
+    transform: scale(0.8);
+}
+
+/* 山 */
+.mountain {
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-bottom: 150px solid #43b047; /* 緑色 */
+}
+
+.mountain::after {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: -20px;
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 30px solid #fff; /* 山頂の雪 */
+}
+
+.mountain1 {
+    left: -50px;
+}
+
+.mountain2 {
+    right: -20px;
+    border-bottom: 180px solid #358c38; /* 少し違う色の緑 */
+    z-index: 0;
+}
