@@ -9,6 +9,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    height: 100dvh; /* スマホなどのブラウザのバーを考慮した高さ */
     touch-action: none; /* スマホでのズームやスクロールを防止 */
 }
 
@@ -224,4 +225,17 @@ canvas {
     right: -20px;
     border-bottom: 180px solid #358c38; /* 少し違う色の緑 */
     z-index: 0;
+}
+
+/* 縦画面が短いスマホ（Safari等）でボタンが隠れないように全体を縮小 */
+@media (max-height: 750px) {
+    #game-container {
+        transform: scale(0.85); /* 全体を少し小さくする */
+    }
+}
+
+@media (max-height: 650px) {
+    #game-container {
+        transform: scale(0.70); /* さらに小さくする */
+    }
 }
